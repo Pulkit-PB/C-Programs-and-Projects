@@ -51,7 +51,7 @@ Node* insertion(Node* head,int ltsize)
                 temp=head;
                 printf("Enter the position:");
                 scanf("%d",&pos);
-                if(pos>1 && pos<ltsize)
+                if(pos>1 && pos<=ltsize)
                 {
                     for(int i=1;i<pos-1;i++)
                     {
@@ -95,12 +95,12 @@ Node* deletion(Node* head,int ltsize){
 void display(Node* head)
 {
     Node* temp=head;
-    while(temp->next!=NULL)
+    do
     {
         printf("\n");
         printf("%d ",temp->value);
         temp=temp->next;
-    }
+    }while(temp!=NULL);
     
 
 }
@@ -111,7 +111,7 @@ int main()
     int chz,lsize=0;
     while(1)
     {
-        printf("Choose an option:\n 1.Insertion\n 2.Deletion\n 3.Display\n 4.Exit\n=>");
+        printf("\nChoose an option:\n 1.Insertion\n 2.Deletion\n 3.Display\n 4.Exit\n=>");
         scanf("%d",&chz);
         switch(chz)
         {
