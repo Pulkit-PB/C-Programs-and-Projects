@@ -54,21 +54,31 @@ node* insertion(node* head, int lsize)
 
             case 2:
             {
-            
-                temp=head;
-                printf("\nEnter the position:");
-                scanf("%d",pos);
-                for(int i=1;i<pos-1;i++)
+                MID:
                 {
-                    temp=temp->next;
-                }
-                NN=temp->next;
-                newnode->next=NN;
-                newnode->prev=temp;
-                NN->prev=newnode;
-                temp->next=newnode;
+                    temp=head;
+                    printf("\nEnter the position:");
+                    scanf("%d",pos);
+                    if(pos>1 && pos<=lsize)
+                    {
+                        for(int i=1;i<pos-1;i++)
+                        {
+                            temp=temp->next;
+                        }
+                        NN=temp->next;
+                        newnode->next=NN;
+                        newnode->prev=temp;
+                        NN->prev=newnode;
+                        temp->next=newnode;
+                        
+                    } 
+                    else
+                    {
+                        printf("Invalid Position!");
+                        goto MID;
                     
-                
+                    }
+                }
                 break;
             }
 
@@ -91,23 +101,43 @@ node* insertion(node* head, int lsize)
 
 }
 
+node * lastnode(node* head)
+{
+    node* temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    return temp;
+}
+
 
 node* deletion(node* head, int lsize)
 {
-    node* temp;
+    node* temp; node* lnode;
     int val;
     temp=head;
+    lnode=lastnode(head);
     if(head!=NULL)
     {
         printf("\nEnter the value to be deleted:");
         scanf("%d",&val);
-        while(temp->value!=val)
-        {
-            temp=temp->next;
+        if(val!=temp->value && val!=lnode->value)
+        {    
+            while(temp->value!=val)
+            {
+                temp=temp->next;
+            }
+            temp->prev->next=temp->next;
+            temp->next->prev=temp->prev;
+            free(temp);
         }
-        temp->prev->next=temp->next;
-        temp->next->prev=temp->prev;
-        free(temp);
+        else if(val==temp->value)
+        {
+            temp->next->prev=head;
+            head=temp->next;
+
+        }
     }
     else
     {
@@ -120,7 +150,8 @@ node* deletion(node* head, int lsize)
 
 
 void display(node* head)
-{
+{   
+    
     node* temp=head;
     printf("\n");
     while(temp!=NULL)
@@ -175,6 +206,9 @@ int main()
                 exit(0);
                 break;
             }
+
+            default:
+                printf("\nInvalid Choice!\n");
         }
     }
     
