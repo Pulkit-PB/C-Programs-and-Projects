@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+typedef struct Linked_Poly
+{
+    int coeff;
+    int expo;
+    struct Linked_Poly *next; 
+}node;
+
+node* createnode()
+{
+    int c,x;
+    node* newnode=(node*)malloc(sizeof(node*));
+    printf("\nEnter the coeff of the element:");
+    scanf("%d",&c);
+    printf("\nEnter the expo of the element:");
+    scanf("%d",&x);
+    newnode->coeff=c;
+    newnode->expo=x;
+    newnode->next=NULL;
+
+    return newnode;    
+}
+
+
+node* insertion(node* head)
+{
+    node* newnode=createnode();
+    node* temp=head;
+
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+        newnode->next=NULL;
+    }
+
+    return head;
+}
+
+
+void display(node* head)
+{
+    node* temp=head;
+    printf("\n");
+    while(temp->next!=NULL)
+    {
+        printf("%d ",temp->coeff);
+        printf("%d ",temp->expo);
+        printf("\n");
+        temp=temp->next;
+    }
+}
+
+
+//main fn
+
+int main()
+{
+    int a,x;
+    node* head=NULL;
+
+    //taking Order input from user
+    printf("\nEnter the order of the polynomial:");
+    scanf("%d",&a);
+
+    //taking input for coeff and expo for each node
+
+    for(int i=0;i<a+1;i++)
+    {
+        head=insertion(head);
+    }
+
+    //displaying the coeff and expo
+
+    display(head);
+
+    //Taking input for value of variable
+
+    printf("\nEnter the value for the variable:");
+    scanf("%d",&x);
+
+    int var=0;
+    int sum=0;
+    node* temp=head;
+    for(int i=0;i<a+1;i++)
+    {
+        var=pow(x,temp->expo);
+        sum=sum+(temp->coeff*var);
+        temp=temp->next;
+        
+    }
+
+    printf("\nThe solution of the polynomial is: %d ",sum);
+
+    return 0;
+}
