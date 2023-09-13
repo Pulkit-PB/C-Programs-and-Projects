@@ -20,7 +20,7 @@ void insertion(int z,int arr[])
     {
         printf("%d",arr[j]);
     }
-    printf("\n");
+    
     
     
 }
